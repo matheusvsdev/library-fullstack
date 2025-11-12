@@ -16,6 +16,7 @@ angular-errors.log
 
 # Arquivos de IDE
 .vs/
+.vscode/
 .idea/
 *.suo
 *.user
