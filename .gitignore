@@ -1,0 +1,41 @@
+# Ignora arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ignora logs
+*.log
+npm-debug.log*
+angular-errors.log
+
+# BACKEND (.NET)
+
+# Pastas de compilação (Arquivos .dll e .exe)
+# Isso é o mais importante para o .NET
+**/bin/
+**/obj/
+
+# Arquivos de IDE
+.vs/
+.idea/
+*.suo
+*.user
+
+# ARQUIVO DE SEGREDO (MUITO IMPORTANTE!)
+appsettings.Development.json
+
+# Arquivos do User Secrets (embora geralmente fiquem fora, é bom garantir)
+secrets.json
+
+# FRONTEND (Angular)
+
+**/node_modules/
+
+# A pasta de build (o site compilado)
+**/dist/
+
+# O cache de build do Angular
+**/.angular/cache/
+
+# Arquivos de ambiente local (se você usar .env)
+.env.local
+.env
