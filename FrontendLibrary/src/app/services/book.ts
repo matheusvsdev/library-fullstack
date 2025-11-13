@@ -7,8 +7,8 @@ import { IBookRequest } from '../interfaces/book-request';
 @Injectable({
   providedIn: 'root',
 })
-export class Book {
-  private apiUrl = 'http://localhost:5265/api/v1/book';
+export class BookService {
+  private apiUrl = 'http://localhost:5265/api/v1/books';
 
   constructor(private http: HttpClient) {}
 

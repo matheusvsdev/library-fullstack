@@ -1,0 +1,128 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<p-card>
+  <ng-template pTemplate="title">
+    <h2 class="m-0">Minha Biblioteca</h2>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <p-toolbar class="mb-4">
+      <div class="p-toolbar-group-start">
+        <p-icon-field iconPosition="left">
+          <p-inputicon class="pi pi-search"></p-inputicon>
+          <input
+            pInputText
+            type="text"
+            [(ngModel)]="filterTitle"
+            (keyup.enter)="onFilter()"
+            placeholder="Filtrar por título..."
+          />
+        </p-icon-field>
+      </div>
+
+      <div class="p-toolbar-group-end">
+        <button pButton label="Novo Livro" icon="pi pi-plus" (click)="openNew()"></button>
+      </div>
+    </p-toolbar>
+
+    <p-table [value]="books" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Categorias</th>
+          <th style="width: 10rem">Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-book>
+        <tr>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ formatCategories(book.categories) }}</td>
+          <td>
+            <button
+              pButton
+              icon="pi pi-pencil"
+              severity="info"
+              class="mr-2"
+              (click)="editBook(book)"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              severity="danger"
+              (click)="deleteBook(book)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4">Nenhum livro encontrado.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+</p-card>
+
+<p-dialog
+  [(visible)]="isDialogVisible"
+  [modal]="true"
+  [style]="{ width: '450px' }"
+  [header]="isEditMode ? 'Editar Livro' : 'Novo Livro'"
+  (onHide)="isDialogVisible = false"
+>
+  <form [formGroup]="bookForm" (ngSubmit)="saveBook()">
+    <div class="field">
+      <label for="title" class="font-bold">Título</label>
+      <input pInputText id="title" class="w-full" formControlName="title" />
+      @if(bookForm.get('title')?.invalid && bookForm.get('title')?.touched) {
+      <small class="p-error"> Título é obrigatório. </small>
+      }
+    </div>
+
+    <div class="field mt-3">
+      <label for="author" class="font-bold">Autor</label>
+      <input pInputText id="author" class="w-full" formControlName="author" />
+      @if (bookForm.get('author')?.invalid && bookForm.get('author')?.touched) {
+      <small class="p-error"> Autor é obrigatório. </small>
+      }
+    </div>
+
+    <div class="field mt-3">
+      <label for="categories" class="font-bold">Categorias</label>
+      <p-multiSelect
+        id="categories"
+        [options]="categories"
+        formControlName="categoryIds"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Selecione as categorias"
+        [style]="{ width: '100%' }"
+        [appendTo]="'body'"
+      >
+      </p-multiSelect>
+      @if (bookForm.get('categoryIds')?.invalid && bookForm.get('categoryIds')?.touched) {
+      <small class="p-error"> Pelo menos uma categoria é obrigatória. </small>
+      }
+    </div>
+
+    <div class="flex justify-content-end mt-4">
+      <button
+        pButton
+        label="Cancelar"
+        icon="pi pi-times"
+        [text]="true"
+        (click)="isDialogVisible = false"
+      ></button>
+      <button
+        pButton
+        label="Salvar"
+        icon="pi pi-check"
+        type="submit"
+        [disabled]="bookForm.invalid"
+      ></button>
+    </div>
+  </form>
+</p-dialog>

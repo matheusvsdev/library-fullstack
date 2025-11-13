@@ -6,8 +6,8 @@ import { ICategoryResponse } from '../interfaces/category-response';
 @Injectable({
   providedIn: 'root',
 })
-export class Category {
-  private apiUrl = 'http://localhost:5265/api/v1/category';
+export class CategoryService {
+  private apiUrl = 'http://localhost:5265/api/v1/categories';
 
   constructor(private http: HttpClient) {}
 
