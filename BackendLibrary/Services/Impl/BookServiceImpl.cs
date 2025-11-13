@@ -26,7 +26,7 @@ namespace BackendLibrary.Services.Impl
 
             if (bookDto.CategoryIds.Count > 3)
             {
-                throw new InvalidArgumentException("A book cannot have more than 3 categories.");
+                throw new InvalidArgumentException("Um livro não pode ter mais de 3 categorias.");
             }
 
             var newBook = _mapper.Map<Book>(bookDto);
@@ -86,7 +86,7 @@ namespace BackendLibrary.Services.Impl
 
                 if (bookDto.CategoryIds.Count > 3)
                 {
-                    throw new InvalidArgumentException("A book cannot have more than 3 categories.");
+                    throw new InvalidArgumentException("Um livro não pode ter mais de 3 categorias.");
                 }
 
                 bookToUpdate.Categories = updateCategories;
